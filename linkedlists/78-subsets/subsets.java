@@ -1,30 +1,30 @@
 
 class Solution {
-    List<List<Integer>> ans = new ArrayList<>();
+    
 
     public List<List<Integer>> subsets(int[] nums) {
-         bt(nums, 0, new ArrayList<>());
-        return ans;
+          List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums, 0, new ArrayList<>(), result);
+        return result;
     }
 
-    void bt(int[] a, int i, List<Integer> path) {
+    private void backtrack(int[] nums, int start,
+                           List<Integer> path, List<List<Integer>> result) {
 
-        // S → STOP + A → ANSWER
-        if (i == a.length) {
-            ans.add(new ArrayList<>(path));
-            return;
+        // STOP / SAVE
+        result.add(new ArrayList<>(path));
+
+        // MOVE
+        for (int i = start; i < nums.length; i++) {
+
+            // UPDATE: CHOOSE
+            path.add(nums[i]);
+
+            // EXPLORE
+            backtrack(nums, i + 1, path, result);
+
+            // UNDO
+            path.remove(path.size() - 1);
         }
-
-        // M → MOVE / CHOOSE
-        path.add(a[i]);
-
-        // EXPLORE → INCLUDE
-        bt(a, i + 1, path);
-
-        // UNDO
-        path.remove(path.size() - 1);
-
-        // EXPLORE → EXCLUDE
-        bt(a, i + 1, path);
     }
 }
