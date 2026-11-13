@@ -1,19 +1,12 @@
 class Solution {
     public int countSubstrings(String s) {
-        int count = 0, n = s.length();
-
-        for (int i = 0; i < n; i++)
-            for (int d = 0; d < 2; d++) {
-                int l = i, r = i + d;
-
-                while (l >= 0 && r < n && s.charAt(l) == s.charAt(r)) {
-                    count++;
-                    l--;
-                    r++;
-                }
-            }
-
-        return count;
-        
+        int ans = 0;
+for (int i = 0; i < s.length(); i++) {
+    for (int l = i, r = i; l >= 0 && r < s.length() &&
+         s.charAt(l) == s.charAt(r); l--, r++) ans++;
+    for (int l = i, r = i + 1; l >= 0 && r < s.length() &&
+         s.charAt(l) == s.charAt(r); l--, r++) ans++;
+}
+return ans;
     }
 }
