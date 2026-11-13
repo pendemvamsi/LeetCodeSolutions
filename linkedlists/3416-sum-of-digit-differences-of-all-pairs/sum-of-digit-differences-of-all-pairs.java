@@ -1,21 +1,17 @@
 class Solution {
     public long sumDigitDifferences(int[] nums) {
+        long ans = 0;
         int n = nums.length;
-        long pairs = (long) n * (n - 1) / 2, ans = 0;
 
-        for (long place = 1; place <= nums[0]; place *= 10) {
+        for (int p = 1; p <= nums[0]; p *= 10) {
             int[] freq = new int[10];
 
-            for (int x : nums)
-                freq[(int)(x / place % 10)]++;
-
-            ans += pairs;
+            for (int x : nums) freq[x / p % 10]++;
 
             for (int f : freq)
-                ans -= (long) f * (f - 1) / 2;
+                ans += (long) f * (n - f);
         }
 
-        return ans;
-        
+        return ans / 2;
     }
 }
